@@ -4,6 +4,11 @@
 
 ## 单元测试
 
+自动跑 Lint 和 Cov 单测
+
+> 参考例子：https://github.com/artus-cli/examples/actions
+
+
 - 配置 `npm scripts`：
 
 ```json
@@ -15,6 +20,7 @@
     "ci": "c8 npm test"
   },
 }
+```
 
 - 创建 `.github/workflows/ci.yml`：
 
@@ -62,13 +68,13 @@ jobs:
   - major 大版本：`BREAKING CHANGE`
   - minor 特性版本： `feat:` 等
   - patch 补丁版本：`fix:` 等
-  - 不发布： `chore:` / `docs:` / `style:` 等
+  - 不发布版本： `chore:` / `docs:` / `style:` 等
   - 详见：https://github.com/semantic-release/commit-analyzer
 
 **注意：**
-  - master 首次发布将是 1.0.0 版本
-  - 如果你不期望直接发布，请在 beta 分支提交代码运行，将发布 `1.0.0-beta.1` 版本，同样符合 Semver 规则
-  - 不支持发布 0.x 版本
+  - 不支持发布 0.x 版本，master 首次发布将是 1.0.0 版本
+  - 如果你不期望直接发布，请在 beta 分支提交代码运行，将发布 `1.0.0-beta.1` 版本
+  - 多版本发布实践参见 [semantic-release](https://semantic-release.gitbook.io/semantic-release/recipes/release-workflow/distribution-channels) 文档
 
 
 ### 配置方式

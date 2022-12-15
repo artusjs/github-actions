@@ -1,6 +1,7 @@
 const core = require('@actions/core');
 const { getExecOutput } = require('@actions/exec');
 const semanticRelease = require('semantic-release');
+const path = require('path');
 
 async function execGit(cmd) {
   const { stdout } = await getExecOutput(cmd);
@@ -8,7 +9,8 @@ async function execGit(cmd) {
 }
 
 async function run() {
-  const pkgInfo = require(`${process.cwd()}/package.json`);
+  const mainRepoPath = process.cwd();
+  const pkgInfo = require(`${mainRepoPath}/package.json`);
   const registry = pkgInfo.publishConfig?.registry || 'https://registry.npmjs.org';
   core.setOutput('name', pkgInfo.name);
   core.setOutput('registry', registry);
@@ -18,6 +20,9 @@ async function run() {
   try {
     const result = await semanticRelease({
       dryRun: process.env.DRYRUN === 'true',
+      extends: [
+        path.join(__dirname, 'release.config.js'),
+      ],
     });
 
     const { nextRelease, lastRelease } = result;

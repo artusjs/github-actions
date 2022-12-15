@@ -10,6 +10,7 @@
     "semantic-release": "^19.0.5"
   },
   "devDependencies": {
+    "@types/node": "^18.11.15",
     "@types/semantic-release": "^17.2.4"
   }
 }

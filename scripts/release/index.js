@@ -1,7 +1,9 @@
+const path = require('path');
+const fs = require('fs');
 const core = require('@actions/core');
 const { getExecOutput } = require('@actions/exec');
 const semanticRelease = require('semantic-release');
-const path = require('path');
+
 
 async function execGit(cmd) {
   const { stdout } = await getExecOutput(cmd);
@@ -18,11 +20,16 @@ async function run() {
   const lastCommitId = await execGit(`git log -n1 --format="%h"`);
 
   try {
+    const configFiles = [
+      path.join(__dirname, 'release.config.js'),
+      path.join(mainRepoPath, 'release.config.js'),
+    ].filter(file => fs.existsSync(file));
+
+    core.info(`Using config files: ${configFiles.join(', ')}`);
+
     const result = await semanticRelease({
       dryRun: process.env.DRYRUN === 'true',
-      extends: [
-        path.join(__dirname, 'release.config.js'),
-      ],
+      extends: configFiles,
     });
 
     const { nextRelease, lastRelease } = result;

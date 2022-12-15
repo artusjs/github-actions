@@ -15,11 +15,11 @@ module.exports = {
       },
     ],
 
-    // [{
-    //   fail: function (...args) {
-    //     console.log('Hello World!', args);
-    //   }
-    // }],
+    [{
+      fail: function (...args) {
+        console.log('Hello World!', args);
+      }
+    }],
 
     [ '@semantic-release/github',
       {

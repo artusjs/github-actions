@@ -2,6 +2,12 @@
 
 为开源项目提供常见的可复用的 [GitHub Actions Workflow](https://docs.github.com/en/actions/using-workflows/reusing-workflows#using-inputs-and-secrets-in-a-reusable-workflow)。
 
+## 功能列表
+
+- [x] 单元测试
+- [x] 自动发包
+- [ ] 自动初始化仓库配置
+
 ## 单元测试
 
 自动跑 Lint 和 Cov 单测
@@ -32,12 +38,12 @@ on:
     branches: [ master, main ]
 
   pull_request:
-    branches: [ master, main, next, beta, "*.x" ]
+    branches: [ master, main, next, beta, '*.x' ]
 
   schedule:
     - cron: '0 2 * * *'
 
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 jobs:
   Job:
@@ -86,10 +92,10 @@ name: Release
 on:
   # 合并后自动发布
   push:
-    branches: [ master, main, next, beta, "*.x" ]
+    branches: [ master, main, next, beta, '*.x' ]
 
   # 手动发布
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 jobs:
   release:

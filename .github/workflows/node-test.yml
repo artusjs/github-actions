@@ -16,7 +16,7 @@ on:
       action_ref:
         type: string
         description: 'Branch name for artusjs/github-actions, for test purpose'
-        default: 'master'
+        default: master
 
 jobs:
   Setup:

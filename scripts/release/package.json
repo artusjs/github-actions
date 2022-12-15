@@ -8,5 +8,8 @@
     "@semantic-release/git": "^10.0.1",
     "conventional-changelog-conventionalcommits": "^5.0.0",
     "semantic-release": "^19.0.5"
+  },
+  "devDependencies": {
+    "@types/semantic-release": "^17.2.4"
   }
 }

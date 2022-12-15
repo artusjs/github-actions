@@ -24,7 +24,7 @@
     "lint": "eslint .",
     "test": "mocha",
     "ci": "c8 npm test"
-  },
+  }
 }
 ```
 
@@ -59,14 +59,17 @@ jobs:
 
 使用 [semantic-release](https://semantic-release.gitbook.io/) 自动发布 NPM 包。
 
-### 发布流程
+### 功能详情
 
 - 根据 Git 日志自动计算版本号
 - 自动生成 ChangeLog 文件
 - 自动创建 GitHub Release 说明
-- 自动打打 Tag 标签
+- 自动打 Tag 标签
 - 自动发布到 Registry，支持 NPM 和 GitHub，配置 `publishConfig.registry` 即可
-- 支持合并到主干分支后自动发布，也支持手动发布
+
+支持合并到主干分支后自动发布，也支持手动发布。
+
+> **手动发布方式**：访问仓库的 Actions 页面，左侧选择 Release Workflow，点击右侧的 `Run Workflow` 即可。
 
 ### 版本号规则
 
@@ -85,7 +88,15 @@ jobs:
 
 ### 配置方式
 
-创建 `.github/workflows/release.yml`：
+- 创建 Token
+  - NPM Registry 需创建 Automation Token，参见[文档](https://docs.npmjs.com/creating-and-viewing-access-tokens)
+  - GitHub Package 无需创建，默认支持
+
+- 配置 Token
+  - 在项目或组织维度配置 `NPM_TOKEN` 这个 `secrets`
+  - 参见[文档](https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/managing-encrypted-secrets-for-your-repository-and-organization-for-github-codespaces)
+
+- 创建 `.github/workflows/release.yml`：
 
 ```yaml
 name: Release
@@ -101,10 +112,29 @@ jobs:
   release:
     name: Node.js
     uses: artusjs/github-actions/.github/workflows/node-release.yml@master
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     # with:
       # checkTest: false
       # dryRun: true
 ```
 
-> **手动发布方式**：访问仓库的 Actions 页面，左侧选择 Release Workflow，点击右侧的 `Run Workflow` 即可。
+### 发布到 GitHub Package
 
+修改 `release.yml` 的 secrets：
+
+```yaml
+secrets:
+  NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+修改 `package.json`：
+
+```json
+{
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  },
+}
+```

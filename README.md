@@ -6,7 +6,7 @@
 
 自动跑 Lint 和 Cov 单测
 
-> 参考例子：https://github.com/artus-cli/examples/actions
+> 参考示例：https://github.com/artus-cli/examples/actions
 
 
 - 配置 `npm scripts`：

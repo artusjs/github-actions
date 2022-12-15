@@ -13,6 +13,11 @@ on:
         description: 'Node.js Version, such as 16, 18'
         default: '16, 18'
 
+      action_ref:
+        type: string
+        description: 'Branch name for artusjs/github-actions, for test purpose'
+        default: 'master'
+
 jobs:
   Setup:
     runs-on: ubuntu-latest
@@ -27,7 +32,7 @@ jobs:
         with:
           repository: artusjs/github-actions
           path: action_repo
-          # ref: impl
+          ref: ${{ inputs.action_ref }}
 
       # Setup Node.js environment
       - name: Setup Node.js

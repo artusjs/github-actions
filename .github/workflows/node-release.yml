@@ -7,10 +7,16 @@ on:
         type: boolean
         description: 'whether run test before release'
         default: true
+
       dryRun:
         type: boolean
         description: 'pass dry-run to semantic-release'
         default: false
+
+      action_ref:
+        type: string
+        description: 'Branch name for artusjs/github-actions, for test purpose'
+        default: 'master'
 
 jobs:
   Release:
@@ -30,7 +36,7 @@ jobs:
         with:
           repository: artusjs/github-actions
           path: action_repo
-          # ref: impl
+          ref: ${{ inputs.action_ref }}
 
       # Checkout project repository
       - name: Checkout project repository

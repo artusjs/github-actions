@@ -48,7 +48,7 @@ on:
 jobs:
   Job:
     name: Node.js
-    uses: artusjs/github-actions/.github/workflows/node-test.yml@master
+    uses: artusjs/github-actions/.github/workflows/node-test.yml@v1
     # 支持以下自定义配置，一般用默认值即可
     # with:
     #   os: 'ubuntu-latest, macos-latest, windows-latest'
@@ -111,7 +111,7 @@ on:
 jobs:
   release:
     name: Node.js
-    uses: artusjs/github-actions/.github/workflows/node-release.yml@master
+    uses: artusjs/github-actions/.github/workflows/node-release.yml@v1
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     # with:

@@ -65,7 +65,8 @@ jobs:
 - 自动生成 ChangeLog 文件
 - 自动创建 GitHub Release 说明
 - 自动打 Tag 标签
-- 自动发布到 Registry，支持 NPM 和 GitHub，配置 `publishConfig.registry` 即可
+- 自动发布到 Registry，支持 NPM 和 GitHub
+- 自动触发 CNPM 同步
 
 支持合并到主干分支后自动发布，也支持手动发布。
 

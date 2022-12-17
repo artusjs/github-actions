@@ -3,7 +3,7 @@ const fs = require('fs');
 const core = require('@actions/core');
 const { getExecOutput } = require('@actions/exec');
 const semanticRelease = require('semantic-release');
-
+const { request } = require('undici');
 
 async function execGit(cmd) {
   const { stdout } = await getExecOutput(cmd);
@@ -42,9 +42,18 @@ async function run() {
       core.info(`Published release: ${nextRelease.version}`);
       core.setOutput('release_version', nextRelease.version);
 
+      // cnpm sync
+      const res = await request(`https://registry.npmmirror.com/-/package/${pkgInfo.name}/syncs`, { method: 'PUT' });
+      const { id } = await res.body.json();
+      const logUrl = `https://registry.npmmirror.com/-/package/${pkgInfo.name}/syncs/${id}/log`;
+      core.setOutput('cnpm_sync_url', logUrl);
+      core.info(`cnpm sync log url: ${logUrl}`);
+
+      // write summary
       core.summary.addRaw(`## [${pkgInfo.name}](https://github.com/${process.env.GITHUB_REPOSITORY})\n`);
       core.summary.addRaw(`- Release: ${lastRelease?.version ?? ''} -> ${nextRelease.version}\n`);
       core.summary.addRaw(`- Registry: ${registry}\n`);
+      core.summary.addRaw(`- CNPM Sync: ${logUrl}\n`);
       core.summary.addRaw(`- DryRun: ${process.env.DRYRUN}\n`);
       core.summary.addRaw(nextRelease.notes);
       await core.summary.write();

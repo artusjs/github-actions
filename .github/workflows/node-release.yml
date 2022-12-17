@@ -85,3 +85,4 @@ jobs:
           echo ${{ steps.release.outputs.name }}
           echo ${{ steps.release.outputs.release_version }}
           echo ${{ steps.release.outputs.registry }}
+          echo ${{ steps.release.outputs.cnpm_sync_url }}

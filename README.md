@@ -88,12 +88,16 @@ jobs:
 
 ### 配置方式
 
-- 创建 Token
+- 创建 NPM Token
   - NPM Registry 需创建 Automation Token，参见[文档](https://docs.npmjs.com/creating-and-viewing-access-tokens)
   - GitHub Package 无需创建，默认支持
 
+- 创建 GitHub Token
+  - 因为生成的 CHANGELOG.md 和 package.json 需回写 GitHub，而默认的 `GITHUB_TOKEN` 没有该权限
+  - 因此需要创建一个新的 Token，参见[文档](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+
 - 配置 Token
-  - 在项目或组织维度配置 `NPM_TOKEN` 这个 `secrets`
+  - 在项目或组织维度配置 2 个 `secrets`：`NPM_TOKEN` 和 `GIT_TOKEN`
   - 参见[文档](https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/managing-encrypted-secrets-for-your-repository-and-organization-for-github-codespaces)
 
 - 创建 `.github/workflows/release.yml`：

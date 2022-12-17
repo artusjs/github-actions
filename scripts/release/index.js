@@ -43,7 +43,7 @@ async function run() {
       core.setOutput('release_version', nextRelease.version);
 
       // cnpm sync
-      const res = await request(`https://registry.npmmirror.com/-/package/${pkgInfo.name}/syncs`, { method: 'PUT' });
+      const res = await request(`https://registry-direct.npmmirror.com/-/package/${pkgInfo.name}/syncs`, { method: 'PUT' });
       const { id } = await res.body.json();
       const logUrl = `https://registry.npmmirror.com/-/package/${pkgInfo.name}/syncs/${id}/log`;
       core.setOutput('cnpm_sync_url', logUrl);

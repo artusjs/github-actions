@@ -12,6 +12,11 @@ on:
         type: string
         description: 'Node.js Version, such as 16, 18'
         default: '16, 18'
+        
+      install:
+        type: string
+        description: 'Install dependencies script'
+        default: 'npm i --no-package-lock --no-fund'
 
       action_ref:
         type: string
@@ -40,7 +45,7 @@ jobs:
 
       # Install dependencies
       - name: Install dependencies
-        run: npm i --no-package-lock --no-fund --omit=dev
+        run: ${{ inputs.install }}
         working-directory: action_repo/scripts/test
 
       # Normalize inputs style

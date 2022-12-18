@@ -23,6 +23,21 @@ on:
         description: 'Branch name for artusjs/github-actions, for test purpose'
         default: master
 
+      mysql:
+        type: boolean
+        description: require mysql service or not
+        default: false
+
+      mysql_version:
+        type: string
+        description: mysql version
+        default: '5'
+
+      redis:
+        type: boolean
+        description: require redis service or not
+        default: false
+
 jobs:
   Setup:
     runs-on: ubuntu-latest
@@ -67,6 +82,25 @@ jobs:
     name: Test (${{ matrix.os }}, ${{ matrix.version }})
     runs-on: ${{ matrix.os }}
 
+    services:
+      if: inputs.mysql
+      mysql:
+        image: mysql:${{ inputs.mysql_version }}
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_DATABASE: test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+
+      if: inputs.redis
+      redis:
+        # https://docs.github.com/en/actions/using-containerized-services/about-service-containers#example-mapping-redis-ports
+        image: redis
+        ports:
+          # Opens tcp port 6379 on the host and service container
+          - 6379:6379
+
     concurrency:
       group: ${{ github.workflow }}-#${{ github.event.pull_request.number || github.ref }}-(${{ matrix.os }}, ${{ matrix.version }})
       cancel-in-progress: true
@@ -84,7 +118,7 @@ jobs:
         run: ${{ inputs.install }}
 
       - name: Run Lint
-        run: npm run lint
+        run: npm run lint --if-present
 
       - name: Run Test
         run: npm run ci

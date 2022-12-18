@@ -93,13 +93,13 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
 
-      if: inputs.redis
-      redis:
-        # https://docs.github.com/en/actions/using-containerized-services/about-service-containers#example-mapping-redis-ports
-        image: redis
-        ports:
-          # Opens tcp port 6379 on the host and service container
-          - 6379:6379
+      # if: inputs.redis
+      # redis:
+      #   # https://docs.github.com/en/actions/using-containerized-services/about-service-containers#example-mapping-redis-ports
+      #   image: redis
+      #   ports:
+      #     # Opens tcp port 6379 on the host and service container
+      #     - 6379:6379
 
     concurrency:
       group: ${{ github.workflow }}-#${{ github.event.pull_request.number || github.ref }}-(${{ matrix.os }}, ${{ matrix.version }})

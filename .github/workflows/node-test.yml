@@ -84,7 +84,7 @@ jobs:
         run: ${{ inputs.install }}
 
       - name: Run Lint
-        run: npm run lint
+        run: npm run lint --if-present
 
       - name: Run Test
         run: npm run ci

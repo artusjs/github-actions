@@ -119,6 +119,7 @@ jobs:
     uses: artusjs/github-actions/.github/workflows/node-release.yml@v1
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
     # with:
       # checkTest: false
       # dryRun: true

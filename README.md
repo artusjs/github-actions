@@ -75,7 +75,7 @@ jobs:
 ### 版本号规则
 
 根据 Commit Message 自动计算下一个版本号：
-  - major 大版本：`BREAKING CHANGE`
+  - major 大版本：`BREAKING CHANGE`，必须加到 commit body 里面而不是第一行标题，否则不生效
   - minor 特性版本： `feat:` 等
   - patch 补丁版本：`fix:` 等
   - 不发布版本： `chore:` / `docs:` / `style:` 等

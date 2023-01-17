@@ -6,9 +6,6 @@ on:
       NPM_TOKEN:
         description: 'npm token'
         required: true
-      GIT_TOKEN:
-        description: 'github personal token'
-        required: true
 
     inputs:
       checkTest:
@@ -79,7 +76,7 @@ jobs:
         id: release
         run: node ../action_repo/scripts/release/index.js
         env:
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           DRYRUN: ${{ inputs.dryRun }}
 
